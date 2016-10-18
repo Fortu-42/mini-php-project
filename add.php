@@ -2,33 +2,39 @@
 session_start();
 
 if (!$_SESSION['loggedInUser'] ) {
+
+
   header("Location: index.php");
 }
+
+
 include('includes/connection.php');
+
+
 include('includes/functions.php');
 
-if (isset( $_POST['add'] ) ) {
+if ( isset( $_POST['add'] ) ) {
   # code...
-  $clientName = $clientEmail = $clientPhone=  $clientAddress = $clientCompany = $clientNotes = "";
+  $clientName = $clientEmail = $clientPhone =  $clientAddress = $clientCompany = $clientNotes = "";
 
-  if ( !$_POST['clientName'] ) {
+  if ( !$_POST["clientName"] ) {
     $nameError = "Please enter a name <br>";
     # code...
   }else{
-    $clientName = validateFormData( $_POST['clientName'] );
+    $clientName = validateFormData( $_POST["clientName"] );
   }
 
-  if (!$_POST['clientEmail'] ) {
+  if (!$_POST["clientEmail"] ) {
     $emailError = "Please enter an Email <br>";
     # code...
   }else{
-    $clientName = validateFormData( $_POST['clientEmail'] );
+    $clientEmail = validateFormData( $_POST["clientEmail"] );
   }
 
-  $clientPhone   = validateFormData( $_POST['clientPhone'] );
-  $clientAddress = validateFormData( $_POST['clientAddress'] );
-  $clientCompany = validateFormData( $_POST['clientCompany'] );
-  $clientNotes   = validateFormData( $_POST['clientNotes'] );
+  $clientPhone   = validateFormData( $_POST["clientPhone"] );
+  $clientAddress = validateFormData( $_POST["clientAddress"] );
+  $clientCompany = validateFormData( $_POST["clientCompany"] );
+  $clientNotes   = validateFormData( $_POST["clientNotes"] );
 
   if( $clientName && $clientEmail ){
 
@@ -40,7 +46,7 @@ if (isset( $_POST['add'] ) ) {
 
       header( "Location: clients.php?alert=success");
       # code...
-    }else{
+    } else {
       echo "Error: ". $query . "<br>" . mysqli_error($conn);
     }
   }

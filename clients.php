@@ -11,12 +11,28 @@ include('includes/connection.php');
 $query = "SELECT * FROM clients";
 $result = mysqli_query( $conn, $query );
 
+if (isset( $_GET['alert'] ) ) {
+  # code...
+  if ($_GET['alert'] == 'success' ) {
+    # code...
+    $alertMessage = "<div class='alert alert-success'>New client added to the database <a class='close' data-dismiss='alert'>&times;</a></div>";
+    //client updateds
+  } elseif ($_GET['alert'] == 'updatesuccess') {
+    # code...
+    $alertMessage = "<div class='alert alert-success'>Client updated! <a class='close' data-dismiss='alert'>&times;</a></div>";
+
+  }
+}
+
 mysqli_close($conn);
 
 include('includes/header.php');
 ?>
 
 <h1>Client Address Book</h1>
+
+<?php echo $alertMessage; ?>
+
 
 <table class="table table-striped table-bordered">
     <tr>
