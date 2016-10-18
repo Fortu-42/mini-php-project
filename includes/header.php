@@ -3,7 +3,7 @@
 <html>
 
     <head>
-        
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    
-    <body style="padding-top: 60px;">            
+
+    <body style="padding-top: 60px;">
     <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 
         <div class="container-fluid">
@@ -37,7 +37,9 @@
             </div>
 
             <div class="collapse navbar-collapse" id="navbar-collapse">
-
+                <?php
+                  if($_SESSION['loggedInUser']){
+                 ?>
                 <ul class="nav navbar-nav">
                     <li><a href="clients.php">My Clients</a></li>
                     <li><a href="add.php">Add Client</a></li>
@@ -48,11 +50,15 @@
 
                     <li><a href="logout.php">Log out</a></li>
                 </ul>
-
+                <?php }else{ ?>
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="index.php">Log in</a></li>
+                  </ul>
+                  <?php } ?>
             </div>
 
         </div>
 
     </nav>
-        
+
     <div class="container">

@@ -2,36 +2,35 @@
 session_start();
 include('includes/functions.php');
 
-if (isset( $_POST['login'])) {
+if ( isset( $_POST['login'] ) ) {
 
 
-  $formEmail = validateFormData( $_POST['email']);
-  $formPass = validateFormData( $_POST['password']);
+  $formEmail = validateFormData( $_POST['email'] );
+  $formPass = validateFormData( $_POST['password'] );
 
   include('includes/connection.php');
 
-  $query="SELECT name, password FROM users WHERE email='$formEmail'";
+  $query = "SELECT name, password FROM users WHERE email='$formEmail'";
 
-  $result = mysqli_query($conn, $query);
+  $result = mysqli_query( $conn, $query );
 
-  foreach ($result as $key => $value) {
-    echo "key: $key; Value: $value \n";
-  }
+  if ( mysqli_num_rows($result) > 0 ) {
 
-  if (mysqli_num_rows($result)>0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-      $name = row['name'];
-      $hashedPass = row['password'];
+
+    while ( $row = mysqli_fetch_assoc($result) ) {
+      $name       = $row['name'];
+      $hashedPass = $row['password'];
       # code...
     }
 
-    echo $hashedPass;
 
-    if (password_verify($formPass, $hashedPass)) {
+
+
+    if (password_verify( $formPass, $hashedPass)) {
       # code...
       $_SESSION['loggedInUser'] = $name;
 
-      header("Loaction: clients.php");
+      header( "Location: clients.php" );
 
 
     }else{

@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+if ( !$_SESSION['loggedInUser'] ) {
+  # code...
+  header("Location: index.php");
+}
+
+include('includes/connection.php');
+
+$query = "SELECT * FROM clients";
+$result = mysqli_query( $conn, $query );
+
+mysqli_close($conn);
+
 include('includes/header.php');
 ?>
 
@@ -14,24 +28,30 @@ include('includes/header.php');
         <th>Notes</th>
         <th>Edit</th>
     </tr>
-    <tr>
-        <td>John Doe</td>
-        <td>john@doe.com</td>
-        <td>(123) 456-7890</td>
-        <td>111 Address Street, Calgary, AB  T1G 2KY</td>
-        <td>Brightside Studios Inc.</td>
-        <td>Usually pays early. He's awesome.</td>
-        <td><a href="edit.php" type="button" class="btn btn-default btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></a></td>
-    </tr>
-    <tr>
-        <td>Jane Doe</td>
-        <td>jane@doe.com</td>
-        <td>(123) 456-7890</td>
-        <td>12a Address Avenue, Calgary, AB  T1G 2KY</td>
-        <td>Brightside Studios Inc.</td>
-        <td>Nice lady. Pays in high fives though...</td>
-        <td><a href="edit.php" type="button" class="btn btn-default btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></a></td>
-    </tr>
+
+    <?php
+      if ( mysqli_num_rows($result) > 0 ) {
+        # code...
+        while ($row = mysqli_fetch_assoc($result) ) {
+          # code...
+          echo "<tr>";
+
+          echo "<td>" . $row['name'] . "</td><td>" . $row['email'] . "</td><td>" . $row['phone'] . "</td><td>" . $row['address'] . "</td><td>" . $row['company'] . "</td><td>" . $row['notes'] . "</td>";
+
+          echo '<td><a href="edit.php?id=' . $row['id'] . '" type="button" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-edit"></span>
+                </a></td>';
+
+          echo "</tr>";
+        }
+
+      }else{
+        echo '<div class="alert alert-warning">You Have no clients!</div>';
+      }
+
+      mysqli_close($conn);
+
+     ?>
 
     <tr>
         <td colspan="7"><div class="text-center"><a href="add.php" type="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus"></span> Add Client</a></div></td>

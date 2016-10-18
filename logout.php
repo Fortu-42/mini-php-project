@@ -1,4 +1,15 @@
 <?php
+
+
+if (isset( $_COOKIE[ session_name() ] ) ) {
+  # code...
+  setcookie( session_name(), '', time()-86400, '/' );
+}
+
+session_unset();
+
+session_destroy();
+
 include('includes/header.php');
 ?>
 
