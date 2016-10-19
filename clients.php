@@ -16,11 +16,14 @@ if (isset( $_GET['alert'] ) ) {
   if ($_GET['alert'] == 'success' ) {
     # code...
     $alertMessage = "<div class='alert alert-success'>New client added to the database <a class='close' data-dismiss='alert'>&times;</a></div>";
-    //client updateds
+    //client updated
   } elseif ($_GET['alert'] == 'updatesuccess') {
     # code...
     $alertMessage = "<div class='alert alert-success'>Client updated! <a class='close' data-dismiss='alert'>&times;</a></div>";
 
+  } elseif ($_GET['alert'] == 'deleted') {
+    # code...
+    $alertMessage = "<div class='alert alert-danger'>Client deleted <a class='close' data-dismiss='alert'>&times;</a></div>";
   }
 }
 
